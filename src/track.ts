@@ -7,9 +7,10 @@ function initInuminate() {
         return;
     }
 
-    const data = JSON.parse(script.dataset.inuminate ?? '{}');
+    const site = script.dataset.inuminateSite!;
+    const url = script.dataset.inuminateUrl ?? null;
 
-    const inuminate = new Inuminate(data.site, data.url);
+    const inuminate = new Inuminate(site, url);
     inuminate.track();
 
 }
