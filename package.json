@@ -1,7 +1,8 @@
 {
   "scripts": {
     "bundle": "webpack --mode production",
-    "build": "tsc"
+    "build": "tsc",
+    "prod": "yarn build; yarn bundle"
   },
   "name": "@thepublicgood/inuminate",
   "version": "1.0.5",

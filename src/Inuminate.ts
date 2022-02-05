@@ -15,7 +15,8 @@ export default class Inuminate {
                 method: 'POST',
                 body: JSON.stringify({
                     s: this.siteId,
-                    l: window.location,
+                    l: window.location.href,
+                    p: window.location.protocol,
                     h: this.hostname(),
                     r: this.referer(),
                 }),
