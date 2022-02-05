@@ -7,10 +7,11 @@
         "strict": true,
         "skipLibCheck": true,
         "noImplicitAny": false,
-        "isolatedModules": true,
-        "outDir": "./build"
+        "isolatedModules": false,
+        "outDir": "./dist",
+        "sourceMap": true
     },
-    "files": [
-        "src/track.ts"
+    "include": [
+        "./src/**/*.ts"
     ]
 }

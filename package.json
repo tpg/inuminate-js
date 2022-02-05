@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "tsc"
+    "build": "webpack --mode production"
   },
   "name": "@thepublicgood/inuminate",
   "version": "1.0.0",
@@ -10,7 +10,10 @@
   "author": "THEPUBLICGOOD <makers@thepublicgood.dev>",
   "license": "MIT",
   "private": false,
-  "dependencies": {
-    "typescript": "^4.5.5"
+  "devDependencies": {
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.5",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2"
   }
 }
