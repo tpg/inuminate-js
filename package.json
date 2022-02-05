@@ -3,7 +3,7 @@
     "build": "webpack --mode production"
   },
   "name": "@thepublicgood/inuminate",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Inuminate JavaScript tracker",
   "main": "index.js",
   "repository": "git@github.com:tpg/inuminate.git",
