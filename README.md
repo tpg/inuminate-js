@@ -1,57 +1,58 @@
 # Inuminate
 
-Inuminate is a privacy-first web analytics tool.
+Privacy first web traffic monitor.
 
-This repo is the JavaScript tracker.
+For multi-page sites and HTML projects, it's very simple:
 
-## Usage:
-
-Single Page/HTML Projects:
 ```html
 <script
-    src="https://cdn.jsdelivr.net/npm/@thepublicgood/inuminate@1.0.3/dist/inuminate.js"
-    data-inuminate-site="YOUR_INUMINATE_SITE_KEY"
-    defer
+    src="https://cdn.jsdelivr.net/npm/@thepublicgood/inuminate@1.0/dist/inuminate.js"
+    data-inuminate-site="INUMINATE_SITE_KEY"
 ></script>
 ```
 
-For InertiaJS:
-
-First add the package:
+For SPA, you can import our library into your project:
 
 ```shell
-yarn add @thepublicgood/inuminate
+yarn add -D "@thepublicgood/inuminate"
 ```
 
-Then add to `app.js`:
+Import the library:
 
 ```javascript
-import {Inuminate} from '@thepublicgood/inuminate/src/Inuminate.ts';
-import {Inertia} from '@inertiajs/inertia-vue3'
+import Inuminate from '@thepublicgood/inuminate/build/Inuminate.js'
+```
+
+If you're using TypeScript, you can import the source:
+
+```typescript
+import Inuminate from '@thepublicgood/inuminate/src/Inuminate';
+```
+
+If you're using Inertia JS, it's useful to update your `HandleInertiaRequests.php` to include your Inertia KEY in every response:
+
+```php
+public function share(Request $request): array
+{
+    return array_merge(parent::share($request), [
+        'inuminate' => [
+            'site' => 'INUMINATE_SITE_KEY',
+            // 'url' => 'https://inuminate.mysite.com', // if you are self hosting
+        ]
+    ]);
+}
+```
+The library exposes an `Inuminate` class. Update your application's entry with:
+
+```javascript
+import {Inuminate} from 'https://inuminate.com/tracker/inuminate';
+import {Inertia, usePage} from '@inertiajs/inertia-vue3'
 
 Inertia.on('navigate', () => {
-    const inuminate = new Inuminate('INUMINATE_SITE_KEY');
+    
+    const data = usePage().props.value.inuminate;
+    
+    const inuminate = new Inuminate(data.site, data.url);
     inuminate.track();
 });
-```
-
-## Self-hosted
-If your Inuminate installation is self-hosted, you can pass the base URL to your installation. For single-page projects, add a `data-inuminate-url` parameter:
-
-```html
-<script
-    src="https://cdn.jsdelivr.net/npm/@thepublicgood/inuminate@1.0.3/dist/inuminate.js"
-    data-inuminate-site="YOUR_INUMINATE_SITE_KEY"
-    data-inuminate-url="https://inuminate.mysite.com"
-    defer
-></script>
-```
-
-Or for InertiaJS projects:
-
-```javascript
-Inertia.on('navigate', () => {
-    const inuminate = new Inuminate('INUMINATE_SITE_KEY', 'https://inuminate.mysite.com');
-    inuminate.track();
-})
 ```
