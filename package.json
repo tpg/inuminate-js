@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "build": "tsc"
+  },
+  "name": "inuminate",
+  "version": "1.0.0",
+  "description": "Inuminate JavaScript tracker",
+  "main": "index.js",
+  "repository": "git@github.com:tpg/inuminate.git",
+  "author": "THEPUBLICGOOD <makers@thepublicgood.dev>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "typescript": "^4.5.5"
+  }
+}
