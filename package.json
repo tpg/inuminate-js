@@ -2,7 +2,7 @@
   "scripts": {
     "build": "tsc"
   },
-  "name": "@tpg/inuminate",
+  "name": "@thepublicgood/inuminate",
   "version": "1.0.0",
   "description": "Inuminate JavaScript tracker",
   "main": "index.js",
