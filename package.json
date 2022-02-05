@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "build": "webpack --mode production"
+    "bundle": "webpack --mode production",
+    "build": "tsc"
   },
   "name": "@thepublicgood/inuminate",
   "version": "1.0.3",

@@ -8,10 +8,8 @@
         "skipLibCheck": true,
         "noImplicitAny": false,
         "isolatedModules": false,
-        "outDir": "./dist",
+        "outDir": "./build",
         "sourceMap": true
     },
-    "include": [
-        "./src/**/*.ts"
-    ]
+    "files": ["./src/Inuminate.ts"]
 }
