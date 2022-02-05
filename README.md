@@ -25,7 +25,7 @@ yarn add @tpg/inuminate
 Then add to `app.js`:
 
 ```javascript
-import {Inuminate} from '@tpg/inuminate';
+import {Inuminate} from '@thepublicgood/inuminate';
 import {Inertia} from '@inertiajs/inertia-vue3'
 
 Inertia.on('navigate', () => {
