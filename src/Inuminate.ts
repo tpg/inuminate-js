@@ -3,9 +3,9 @@ export default class Inuminate {
     siteId: string;
     url: string;
 
-    constructor (siteId, url = 'https://inuminate.com') {
+    constructor (siteId: string, url?: string|null) {
         this.siteId = siteId;
-        this.url = url;
+        this.url = url ?? 'https://inuminate.com';
     }
 
     track (): Promise<object> {
