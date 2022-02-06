@@ -42,17 +42,29 @@ public function share(Request $request): array
     ]);
 }
 ```
-The library exposes an `Inuminate` class. Update your application's entry with:
+The library exposes an `Inuminate` class. Update your application's entry with by adding to the `setup` method that is passed to `createInertiaApp`. Don't create a new instance of `Inuminate` inside the `navigate` event otherwise you'll lose referrer data.
 
 ```javascript
 import {Inuminate} from 'https://inuminate.com/tracker/inuminate';
-import {Inertia, usePage} from '@inertiajs/inertia-vue3'
+import {Inertia} from '@inertiajs/inertia'
+import {createInertiaApp, usePage} from '@inertiajs/inertia-vue3'
 
-Inertia.on('navigate', () => {
-    
-    const data = usePage().props.value.inuminate;
-    
-    const inuminate = new Inuminate(data.site, data.url);
-    inuminate.track();
+createInertiaApp({
+    resolve: async (name) {
+        //...
+    },
+    setup ({el, app, props, plugin}) {
+        createApp({ render: () => h(app, props)})
+            .use(plugin)
+            .mount(el);
+        
+        const settings = usePage().props.value.inuminate;
+        const inuminate = new Inuminate(settings.site, settings.url);
+
+        Inertia.on('navigate', (e) => {
+            inuminate.track();
+        })
+
+    }
 });
 ```
