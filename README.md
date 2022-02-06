@@ -42,7 +42,7 @@ public function share(Request $request): array
     ]);
 }
 ```
-The library exposes an `Inuminate` class. Update your application's entry with by adding to the `setup` method that is passed to `createInertiaApp`. Don't create a new instance of `Inuminate` inside the `navigate` event otherwise you'll lose referrer data.
+The library exposes an `Inuminate` class. Update your application's entry with by adding to the `setup` method that is passed to `createInertiaApp`.
 
 ```javascript
 import {Inuminate} from 'https://inuminate.com/tracker/inuminate';
@@ -67,4 +67,12 @@ createInertiaApp({
 
     }
 });
+```
+
+Don't create a new instance of `Inuminate` inside the `navigate` event otherwise you'll lose referrer data.
+
+If you need to pass in the referrer URL, you can do so using the `withReferrer` method:
+
+```javascript
+inuminate.withReferrer(url).track();
 ```

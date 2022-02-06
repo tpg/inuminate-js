@@ -2,24 +2,24 @@ export default class Inuminate {
 
     siteId: string;
     url: string;
-    referrer: string = '';
-    direct: boolean = true;
+    referrer: string;
+    direct: boolean;
 
     constructor (siteId: string, url?: string|null) {
         this.siteId = siteId;
         this.url = url ?? 'https://inuminate.com';
 
-        this.setReferrer();
+        this.direct = document.referrer === '';
+        this.referrer = this.direct ? '' : window.location.origin;
     }
 
-    setReferrer () {
-        this.referrer = document.referrer;
-        this.direct = this.referrer === '';
+    withReferrer(referrer: string): Inuminate {
+
+        this.referrer = referrer;
+        return this;
     }
 
     track (): Promise<object> {
-
-        this.setReferrer();
 
         return new Promise((resolve, reject) => {
 
@@ -40,7 +40,7 @@ export default class Inuminate {
 
                 if (this.direct) {
                     this.direct = false;
-                    this.referrer = window.location.href;
+                    this.referrer = window.location.origin;
                 }
 
                 resolve(response);
