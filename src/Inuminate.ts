@@ -2,13 +2,25 @@ export default class Inuminate {
 
     siteId: string;
     url: string;
+    referrer: string = '';
+    direct: boolean = true;
 
     constructor (siteId: string, url?: string|null) {
         this.siteId = siteId;
         this.url = url ?? 'https://inuminate.com';
+
+        this.setReferrer();
+    }
+
+    setReferrer () {
+        this.referrer = document.referrer;
+        this.direct = this.referrer === '';
     }
 
     track (): Promise<object> {
+
+        this.setReferrer();
+
         return new Promise((resolve, reject) => {
 
             fetch(this.endpoint('api/hit'), {
@@ -18,23 +30,35 @@ export default class Inuminate {
                     l: window.location.href,
                     p: window.location.protocol,
                     h: this.hostname(),
-                    r: this.referer(),
+                    r: this.referrer,
+                    d: this.direct,
                 }),
                 headers: {
                     "Content-Type": "application/json"
                 }
             }).then(response => {
-                resolve(response)
+
+                if (this.direct) {
+                    this.direct = false;
+                    this.referrer = window.location.href;
+                }
+
+                resolve(response);
+
             }).catch(rejected => {
+
                 console.error('Unable to track hit');
                 console.log(rejected);
+                
                 reject(rejected);
+
             });
 
         })
     }
 
     endpoint (uri: string|null): string {
+
         let url = this.url;
         if (url[url.length -1] !== '/') {
             url += '/';
@@ -45,17 +69,7 @@ export default class Inuminate {
             ep = ep.substring(1);
         }
 
-        return url + ep;
-    }
-
-    referer (): string|null {
-
-        let referrer = '';
-        if (document.referrer.indexOf(this.hostname()) < 0) {
-            referrer = document.referrer;
-        }
-
-        return referrer;
+        return url + ep;       
     }
 
     hostname (): string {

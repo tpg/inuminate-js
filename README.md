@@ -1,6 +1,6 @@
 # Inuminate
 
-Privacy first web traffic monitor.
+Privacy first, cookie-free web traffic monitor and analyser.
 
 For multi-page sites and HTML projects, it's very simple:
 
