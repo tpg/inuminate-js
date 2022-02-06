@@ -1,17 +1,15 @@
 export default class Inuminate {
     constructor(siteId, url) {
-        this.referrer = '';
-        this.direct = true;
         this.siteId = siteId;
         this.url = url !== null && url !== void 0 ? url : 'https://inuminate.com';
-        this.setReferrer();
+        this.direct = document.referrer === '';
+        this.referrer = this.direct ? '' : window.location.origin;
     }
-    setReferrer() {
-        this.referrer = document.referrer;
-        this.direct = this.referrer === '';
+    withReferrer(referrer) {
+        this.referrer = referrer;
+        return this;
     }
     track() {
-        this.setReferrer();
         return new Promise((resolve, reject) => {
             fetch(this.endpoint('api/hit'), {
                 method: 'POST',
@@ -29,7 +27,7 @@ export default class Inuminate {
             }).then(response => {
                 if (this.direct) {
                     this.direct = false;
-                    this.referrer = window.location.href;
+                    this.referrer = window.location.origin;
                 }
                 resolve(response);
             }).catch(rejected => {
